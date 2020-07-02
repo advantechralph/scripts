@@ -1,0 +1,42 @@
+
+function usage_disk(){
+cat << EOF
+
+  Usage: 
+
+    disk [options]
+
+    options: 
+
+      -l, --list             list disk block devices
+      -h, --help             show this usage     
+
+EOF
+  return; 
+}
+
+function disk(){
+  options=$(getopt --name disk -o lh --long list,help -- "$@")
+  eval set -- "$options"
+  while true; do
+    case "$1" in
+    -l)
+      lsblk -d
+      return; 
+      ;;
+    -h)
+      usage_disk
+      ;;
+    --help)
+      usage_disk
+      ;;
+    --)
+      shift
+      break
+      ;;
+    esac
+    shift
+  done
+  usage_disk
+}
+

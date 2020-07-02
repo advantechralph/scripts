@@ -1,0 +1,7 @@
+function list(){
+  printf 'Function List: \n' ;
+  functions=$(declare -F | sed -e 's/declare -f //')
+  for f in $functions ; do
+    echo "  $f"
+  done
+}
